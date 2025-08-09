@@ -17,6 +17,15 @@ let urls = [];
 let dragSrcIndex = null;
 
 
+function saveUrlsOnExtract(){
+  chrome.storage.local.set({ savedUrls: urls }, () => {
+    statusEl.textContent = "URLs saved successfully!";
+    statusEl.style.color = "green";
+    saveReminderEl.style.display = "none";  // <---- Hide reminder
+    setTimeout(() => (statusEl.textContent = ""), 2500);
+  });
+}
+
 // Open modal
 openPasteModalBtn.addEventListener('click', () => {
   pasteTextarea.value = '';
@@ -49,8 +58,9 @@ addPasteBtn.addEventListener('click', () => {
   });
 
   if (addedCount) {
+    saveUrlsOnExtract();
     renderUrls();
-    markUnsaved();  // Show save reminder
+    // markUnsaved();  // Show save reminder
   }
   statusEl.textContent = `${addedCount} URLs added from paste.`;
   statusEl.style.color = 'green';
@@ -224,6 +234,7 @@ saveBtn.addEventListener("click", () => {
     setTimeout(() => (statusEl.textContent = ""), 2500);
   });
 });
+
 
 // Save on Enter key in the input field
 urlInput.addEventListener("keydown", (e) => {
