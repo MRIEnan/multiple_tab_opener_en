@@ -21,7 +21,7 @@ function saveUrlsOnExtract(){
   chrome.storage.local.set({ savedUrls: urls }, () => {
     statusEl.textContent = "URLs saved successfully!";
     statusEl.style.color = "green";
-    saveReminderEl.style.display = "none";  // <---- Hide reminder
+    // saveReminderEl.style.display = "none";  // <---- Hide reminder
     setTimeout(() => (statusEl.textContent = ""), 2500);
   });
 }
@@ -230,7 +230,7 @@ saveBtn.addEventListener("click", () => {
   chrome.storage.local.set({ savedUrls: urls }, () => {
     statusEl.textContent = "URLs saved successfully!";
     statusEl.style.color = "green";
-    saveReminderEl.style.display = "none";  // <---- Hide reminder
+    // saveReminderEl.style.display = "none";  // <---- Hide reminder
     setTimeout(() => (statusEl.textContent = ""), 2500);
   });
 });
