@@ -2,6 +2,7 @@
 
 **Multiple Tab Opener En** is a lightweight Chrome extension that lets you manage a list of URLs and open all of them at once with a single click.
 ---
+![image_ext_1.png](image_ext_1.png)
 ## Features
 
 - Add, remove, and reorder multiple URLs in an easy-to-use options page
