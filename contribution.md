@@ -1,6 +1,6 @@
-# Contributing to Open It Chrome Extension
+# Contributing to Multiple Tab Opener En Chrome Extension
 
-Thank you for your interest in contributing to **Open It**! We welcome your help to make this extension better.
+Thank you for your interest in contributing to **Multiple Tab Opener En**! We welcome your help to make this extension better.
 
 ---
 
@@ -68,6 +68,6 @@ Feel free to ask questions or propose ideas via Issues.
 If you find a bug or want to request a feature, please open an Issue on the repo with detailed information.
 
 
-# Thanks for helping make Open It better! 🙌
+# Thanks for helping make Multiple Tab Opener En better! 🙌
 #### Author: Mainur Rahman
 #### GitHub: https://github.com/MRIEnan
