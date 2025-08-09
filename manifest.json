@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Open It",
+  "name": "Multiple Tab Opener EN",
   "version": "1.0",
   "description": "Open multiple saved URLs with a single click.",
   "permissions": ["storage", "tabs","notifications"],

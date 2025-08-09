@@ -6,7 +6,8 @@
 
 ## Features
 
-- Add, remove, and reorder multiple URLs in an easy-to-use options page  
+- Add, remove, and reorder multiple URLs in an easy-to-use options page
+- Add a list of urls as a text and extract these urls automatically
 - Drag-and-drop support for URL reordering  
 - Save URLs persistently using Chrome's local storage  
 - Click the extension icon to open all saved URLs in new tabs  
@@ -18,8 +19,8 @@
 
 1. Download or clone this repository to your computer.  
     ```bash
-    git clone https://github.com/your-username/open-it.git
-    cd open-it
+    git clone https://github.com/MRIEnan/multiple_tab_opener_en
+    cd multiple_tab_opener_en
     ```
 2. Open Chrome and go to `chrome://extensions/`.  
 3. Enable **Developer mode** (toggle in top right).  
