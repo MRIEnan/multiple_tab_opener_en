@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Open It - Options</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 10px auto;
+      padding: 0 15px;
+      background: #f5f7fa;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .input-group {
+      display: flex;
+      margin-bottom: 15px;
+      gap: 10px;
+    }
+    input[type="url"] {
+      flex: 1;
+      padding: 8px;
+      font-size: 16px;
+      border: 1px solid #bbb;
+      border-radius: 5px;
+      outline: none;
+    }
+    input[type="url"]:focus {
+      border-color: #4caf50;
+      box-shadow: 0 0 6px #4caf50aa;
+    }
+    button {
+      background: #4caf50;
+      border: none;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background: #43a047;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 0;
+    }
+    li {
+      background: white;
+      margin-bottom: 8px;
+      padding: 10px 15px;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px #ddd;
+      word-break: break-all;
+    }
+    .remove-btn {
+      background: #e53935;
+      border: none;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .remove-btn:hover {
+      background: #c62828;
+    }
+    #status {
+      text-align: center;
+      margin: 5px;
+      font-weight: bold;
+      color: green;
+      font-size: 10px;
+    }
+    #urlList {
+      max-height: 300px; /* fixed height, adjust as needed */
+      overflow-y: auto;  /* vertical scrollbar when content overflows */
+      padding-right: 8px; /* optional, to avoid scrollbar overlapping content */
+      border: 1px solid #ccc; /* optional border for clarity */
+      border-radius: 6px;
+      background: white;
+      padding: 10px;
+    }
+    /* Highlight the item you're dragging over */
+    #urlList li.over {
+      border: 2px dashed #4caf50;
+    }
+    #urlList li.dragging {
+      opacity: 0.5;
+      transform: scale(0.95);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      background-color: #e0f2f1; /* subtle highlight */
+      cursor: grabbing;
+      transition: transform 0.2s ease;
+    }
+    #urlList li {
+      cursor: grab; /* open hand when hover normally */
+      margin: 10px auto;
+    }
+
+    #urlList li.dragging {
+      cursor: grabbing; /* closed hand when dragging */
+    }
+    #total-url-count {
+      font-size: 16px;
+      font-weight: 600;
+      color: #4caf50; /* green */
+      text-align: center;
+      margin: 15px 0;
+      background-color: #e8f5e9; /* very light green */
+      border: 1px solid #a5d6a7; /* soft green border */
+      border-radius: 8px;
+      padding: 10px 20px;
+      /* max-width: 300px; */
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 2px 6px rgba(76, 175, 80, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <div style="display: grid;place-items: center;">
+    <div style="width: 24px;height: 24px;">
+      <img style="width: 100%;height: 100%;" src="open_it_img.png" alt="open_it_img"/>
+    </div>
+    <h1>Open It - Manage URLs</h1>
+  </div>
+  <div class="input-group">
+    <input type="url" id="urlInput" placeholder="Enter URL (e.g. https://example.com)" />
+    <button id="addUrlBtn">Add</button>
+    <button id="openPasteModalBtn" style="background:#2196f3; margin-left:10px;">Paste URLs</button>
+  </div>
+  <!-- Modal -->
+  <div id="pasteModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
+    background:rgba(0,0,0,0.5); z-index: 9999; justify-content:center; align-items:center;">
+    <div style="background:#fff; padding:20px; border-radius:8px; max-width:400px; width:90%; box-shadow:0 5px 15px rgba(0,0,0,0.3); position:relative;">
+      <h2 style="margin-top:0; font-size: 1.5em;">Paste URLs</h2>
+      <textarea id="pasteTextarea" rows="8" style="width:calc( 100% - 20px); padding:10px; font-size:14px; border:1px solid #ccc; border-radius:4px;" placeholder="Paste URLs here, one per line or comma separated"></textarea>
+      <div style="margin-top: 15px; text-align: right;">
+        <button id="cancelPasteBtn" style="margin-right: 10px; padding: 6px 12px; border:none; background:#ff0000; border-radius:4px; cursor:pointer;">Cancel</button>
+        <button id="addPasteBtn" style="padding: 6px 12px; border:none; background:#4caf50; color:#fff; border-radius:4px; cursor:pointer;">Add URLs</button>
+      </div>
+    </div>
+  </div>
+  <div>
+    <p id="total-url-count"></p>
+  </div>
+  <ul id="urlList"></ul>
+  <button id="saveBtn" style="width: 100%; margin-top: 10px;">Save All</button>
+  <!-- <p id="saveReminder" style="color: #d9534f; font-weight: bold; display: none; margin-top: 8px;">
+    ⚠️ Changes not saved. Click "Save All" to save your URLs.
+  </p> -->
+  <p id="status"></p>
+  <div id="github-area" style="text-align:center; margin-top: 10px; font-family: Arial, sans-serif;">
+  <p style="margin-bottom: 10px; font-weight: bold; color: #333;">
+    If you like this extension, please ⭐ star the repo and follow me on GitHub! &copy; 2025 Mainur Rahman &nbsp;|&nbsp; 
+    <button id="openExtensionsBtn" style="background:none; border:none; color:#777; cursor:pointer; text-decoration:underline; font-size:14px;text-decoration: none;">
+      Open It Chrome Extension
+    </button>
+  </p>
+  <a href="https://github.com/MRIEnan/Open-It-Chrome-Extension" target="_blank" 
+      style="text-decoration: none; margin-right: 10px;">
+      <button style="background: #24292e; color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+        ⭐ Star Repo
+      </button>
+    </a>
+    <a href="https://github.com/MRIEnan" target="_blank" 
+      style="text-decoration: none;">
+      <button style="background: #0366d6; color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+        👤 Follow Me
+      </button>
+    </a>
+  </div>
+  
+
+  <script src="options.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Open It",
+  "version": "1.0",
+  "description": "Open multiple saved URLs with a single click.",
+  "permissions": ["storage", "tabs","notifications"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "options_page": "options.html",
+  "action": {
+    "default_icon": "open_it_img.png",
+    "default_title": "Open It"
+  }
+}
